@@ -1,5 +1,6 @@
 #include "ICM_Bridge.h"
 #include "Adafruit_ICM20948.h"
+#include "DCM.h"
 #include "Madgwick_filter.h"
 
 Adafruit_ICM20948 icm;
@@ -92,7 +93,7 @@ void IMU_Init_SPI(SPI_HandleTypeDef *hspi, GPIO_TypeDef *cs_port, uint16_t cs_pi
     // 2. NGHI THỨC ĐÁNH THỨC SPI BẮT BUỘC (SPI WAKE-UP SEQUENCE)
     // Phải lặp lại 2-3 lần để ép chip vào chế độ SPI
     // ========================================================
-    HAL_Delay(100); // Chờ nguồn ổn định hoàn toàn
+    HAL_Delay(10); // Chờ nguồn ổn định hoàn toàn
 
     if (icm.begin_SPI(hspi, cs_port, cs_pin)) {
         icm.enableAccelDLPF(true, ICM20X_ACCEL_FREQ_50_4_HZ);
